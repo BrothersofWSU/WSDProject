@@ -12,7 +12,7 @@ namespace HotelOne19679091.Models
 
         [Required]
         [Display(Name ="Level")]
-        [RegularExpression(@"^[1-3]{1}$", ErrorMessage ="")]
+        [RegularExpression(@"^[1-3G]{1}$", ErrorMessage ="Room level can only be either 1, 2, 3, or G")]
         public string level { get; set; }
 
 

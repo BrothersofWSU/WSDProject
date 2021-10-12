@@ -19,7 +19,7 @@ namespace HotelOne19679091.Pages.Customers
         {
             _context = context;
         }
-
+        
         [BindProperty]
         public Customer Customer { get; set; }
 
