@@ -3,14 +3,16 @@ using System;
 using HotelOne19679091.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HotelOne19679091.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211012230233_fixingCust")]
+    partial class fixingCust
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -18,7 +20,7 @@ namespace HotelOne19679091.Data.Migrations
 
             modelBuilder.Entity("HotelOne19679091.Models.Booking", b =>
                 {
-                    b.Property<int>("bookingId")
+                    b.Property<int>("bookindId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -38,7 +40,7 @@ namespace HotelOne19679091.Data.Migrations
                     b.Property<int>("roomId")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("bookingId");
+                    b.HasKey("bookindId");
 
                     b.HasIndex("customerEmail");
 
