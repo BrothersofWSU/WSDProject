@@ -19,7 +19,8 @@
             </div>
             <div class="form-group">
                 <label asp-for="Booking.customerEmail" class="control-label"></label>
-                <select asp-for="Booking.customerEmail" class ="form-control" asp-items="ViewBag.customerEmail"></select>
+                <input asp-for="Booking.customerEmail" class="form-control" />
+                <span asp-validation-for="Booking.customerEmail" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Booking.checkIn" class="control-label"></label>
