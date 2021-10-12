@@ -19,7 +19,8 @@ namespace HotelOne19679091.Models
 
         [Required]
         [Display(Name ="Beds")]
-        [RegularExpression(@"^[1-3]{1}$")]       
+        [Range(1, 3)]
+          
         public int bedCount { get; set; }
 
         [Display(Name ="Price")]
