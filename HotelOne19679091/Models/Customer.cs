@@ -19,7 +19,7 @@ namespace HotelOne19679091.Models
         [Required]
         [MinLength(2), MaxLength(20)]
         [RegularExpression(@"^[a-zA-Z'-]*$", ErrorMessage = "Surname can only be between 2 and 20 chacaters and can only consist of English letters, hyphen and apostrophe.")]
-        public string lanme { get; set; }
+        public string lname { get; set; }
 
         [Display(Name = "First Name")]
         [Required]

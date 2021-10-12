@@ -8,6 +8,7 @@ namespace HotelOne19679091.Models
 {
     public class Booking
     {
+        [Key]
         public int bookindId { get; set; }
 
         public int roomId { get; set; } //this has to be a foreign key to Rooms table
