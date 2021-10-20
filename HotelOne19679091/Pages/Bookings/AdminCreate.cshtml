@@ -1,0 +1,69 @@
+﻿@page
+@model HotelOne19679091.Pages.Bookings.AdminCreateModel
+@{
+    ViewData["Title"] = "Admin Create Booking";
+}
+
+@if (User.IsInRole("Admin"))
+{
+    <h1>Create</h1>
+
+    <h4>Booking</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Booking.roomId" class="control-label"></label>
+                    <select asp-for="Booking.roomId" class="form-control" asp-items="ViewBag.roomId"></select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Booking.customerEmail" class="control-label"></label>
+                    <select asp-for="Booking.customerEmail" class="form-control" asp-items="ViewBag.customerEmail"></select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Booking.checkIn" class="control-label"></label>
+                    <input asp-for="Booking.checkIn" class="form-control" />
+                    <span asp-validation-for="Booking.checkIn" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Booking.checkOut" class="control-label"></label>
+                    <input asp-for="Booking.checkOut" class="form-control" />
+                    <span asp-validation-for="Booking.checkOut" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        @if (ViewData["Success"] != null)
+        {
+            <hr />
+            <p>
+                Successfully booked room <b>@Model.Booking.roomId</b>, on level <b>@Model.Booking.theRoom.level</b>
+                for $@Model.Booking.cost
+            </p>
+            <p>
+                Your check in date is <b>@Model.Booking.checkIn</b> and your check out date is <b>@Model.Booking.checkOut</b>
+            </p>
+        }
+        @if (ViewData["AlreadyBooked"] != null)
+        {
+            <p>
+                Room <b>@Model.Booking.roomId</b> has already been booked. Please select another room.
+            </p>
+        }
+        @if (ViewData["oninvaliddate"] == "true")
+        {
+            <p>Check in date cannot be greater than check out date.</p>
+        }
+    </div>
+
+    <div>
+        <a asp-page="AdminView">Back to Admin View</a>
+    </div>
+}
