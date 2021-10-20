@@ -32,14 +32,14 @@ namespace HotelOne19679091.Pages.Bookings
 
             Booking = await _context.Booking
                 .Include(b => b.theCustomer)
-                .Include(b => b.theRoom).FirstOrDefaultAsync(m => m.bookindId == id);
+                .Include(b => b.theRoom).FirstOrDefaultAsync(m => m.bookingId == id);
 
             if (Booking == null)
             {
                 return NotFound();
             }
-           ViewData["customerEmail"] = new SelectList(_context.Set<Customer>(), "email", "email");
-           ViewData["roomId"] = new SelectList(_context.Set<Room>(), "roomId", "level");
+           ViewData["customerEmail"] = new SelectList(_context.Customer, "email", "email");
+           ViewData["roomId"] = new SelectList(_context.Room, "roomId", "level");
             return Page();
         }
 
@@ -60,7 +60,7 @@ namespace HotelOne19679091.Pages.Bookings
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!BookingExists(Booking.bookindId))
+                if (!BookingExists(Booking.bookingId))
                 {
                     return NotFound();
                 }
@@ -75,7 +75,7 @@ namespace HotelOne19679091.Pages.Bookings
 
         private bool BookingExists(int id)
         {
-            return _context.Booking.Any(e => e.bookindId == id);
+            return _context.Booking.Any(e => e.bookingId == id);
         }
     }
 }

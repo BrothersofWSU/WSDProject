@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HotelOne19679091.Models
 {
     public class Customer
     {
-        public int cutomerId { get; set; }
-
+        
         [Display(Name ="Customer email")]
         [Key]
-       // [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public string email { get; set; }
 
         [Display(Name ="Surname")]

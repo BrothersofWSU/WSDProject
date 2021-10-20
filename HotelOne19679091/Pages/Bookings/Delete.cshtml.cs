@@ -31,7 +31,7 @@ namespace HotelOne19679091.Pages.Bookings
 
             Booking = await _context.Booking
                 .Include(b => b.theCustomer)
-                .Include(b => b.theRoom).FirstOrDefaultAsync(m => m.bookindId == id);
+                .Include(b => b.theRoom).FirstOrDefaultAsync(m => m.bookingId == id);
 
             if (Booking == null)
             {
