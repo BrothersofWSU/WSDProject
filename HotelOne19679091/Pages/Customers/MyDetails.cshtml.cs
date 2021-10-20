@@ -11,7 +11,7 @@ using HotelOne19679091.Models;
 
 namespace HotelOne19679091.Pages.Customers
 {
-    [Authorize(Roles ="Customers")]
+    [Authorize]
     public class MyDetailsModel : PageModel
     {
         private readonly HotelOne19679091.Data.ApplicationDbContext _context;

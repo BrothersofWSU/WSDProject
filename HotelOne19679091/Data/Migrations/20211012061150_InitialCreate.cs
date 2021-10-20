@@ -317,7 +317,6 @@ namespace HotelOne19679091.Data.Migrations
                 columns: table => new
                 {
                     email = table.Column<string>(nullable: false),
-                    cutomerId = table.Column<int>(nullable: false),
                     lname = table.Column<string>(maxLength: 20, nullable: false),
                     fname = table.Column<string>(maxLength: 20, nullable: false),
                     postCode = table.Column<string>(nullable: false)

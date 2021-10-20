@@ -12,7 +12,6 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace HotelOne19679091.Pages.Bookings
 {
-    [Authorize(Roles = "Admin")]
     public class EditModel : PageModel
     {
         private readonly HotelOne19679091.Data.ApplicationDbContext _context;
