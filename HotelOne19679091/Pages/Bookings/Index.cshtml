@@ -13,52 +13,61 @@
 
 <table class="table">
     <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Booking[0].checkIn)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Booking[0].checkOut)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Booking[0].cost)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Booking[0].theRoom)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Booking[0].theCustomer)
-            </th>
-            <th></th>
-        </tr>
+            <tr>
+                    <th>
+                            @Html.DisplayNameFor(model => model.Booking[0].theCustomer.lname)
+                    </th>
+                    <th>
+                            @Html.DisplayNameFor(model => model.Booking[0].theCustomer.fname)
+                    </th>
+                    <th>
+                            @Html.DisplayNameFor(model => model.Booking[0].theRoom.roomId)
+                    </th>
+                    <th>
+      
+                            <a asp-page="/Bookings/Index" asp-route-sortorder="@Model.nextDateSort">
+                                    @Html.DisplayNameFor(model => model.Booking[0].checkIn)
+                            </a>
+                    </th>
+                    <th>
+                            @Html.DisplayNameFor(model => model.Booking[0].checkOut)
+                    </th>
+                    <th>
+                            <a asp-page="/Bookings/Index" asp-route-sortorder="@Model.nextCostSort">
+                                    @Html.DisplayNameFor(model => model.Booking[0].cost)
+                            </a>
+                    </th>
+
+                    <th></th>
+            </tr>
     </thead>
     <tbody>
 @foreach (var item in Model.Booking) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.checkIn)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.checkOut)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.cost)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.theRoom.level)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.theCustomer.email)
-            </td>
-            @if (User.IsInRole("Admin"))
-            {
-                <td>
-                    <a asp-page="./Edit" asp-route-id="@item.bookingId">Edit</a> |
-                    <a asp-page="./Details" asp-route-id="@item.bookingId">Details</a> |
-                    <a asp-page="./Delete" asp-route-id="@item.bookingId">Delete</a>
-                </td>
-            }
-        </tr>
+            <tr>
+                    <td>
+                            @Html.DisplayFor(modelItem => item.theCustomer.lname)
+                    </td>
+                    <td>
+                            @Html.DisplayFor(modelItem => item.theCustomer.fname)
+                    </td>
+                    <td>
+                            @Html.DisplayFor(modelItem => item.theRoom.roomId)
+                    </td>
+                    <td>
+                            @Html.DisplayFor(modelItem => item.checkIn)
+                    </td>
+                    <td>
+                            @Html.DisplayFor(modelItem => item.checkOut)
+                    </td>
+                    <td>
+                            @Html.DisplayFor(modelItem => item.cost)
+                    </td>
+@*                    <td>
+                            <a asp-page="./Edit" asp-route-id="@item.bookingId">Edit</a> |
+                            <a asp-page="./Details" asp-route-id="@item.bookingId">Details</a> |
+                            <a asp-page="./Delete" asp-route-id="@item.bookingId">Delete</a>
+                    </td>*@
+            </tr>
 }
     </tbody>
 </table>
