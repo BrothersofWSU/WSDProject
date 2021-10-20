@@ -9,18 +9,18 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HotelOne19679091.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211012061150_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20211012230233_fixingCust")]
+    partial class fixingCust
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.19");
+                .HasAnnotation("ProductVersion", "3.1.20");
 
             modelBuilder.Entity("HotelOne19679091.Models.Booking", b =>
                 {
-                    b.Property<int>("bookingId")
+                    b.Property<int>("bookindId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -40,7 +40,7 @@ namespace HotelOne19679091.Data.Migrations
                     b.Property<int>("roomId")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("bookingId");
+                    b.HasKey("bookindId");
 
                     b.HasIndex("customerEmail");
 
@@ -53,9 +53,6 @@ namespace HotelOne19679091.Data.Migrations
                 {
                     b.Property<string>("email")
                         .HasColumnType("TEXT");
-
-                    b.Property<int>("cutomerId")
-                        .HasColumnType("INTEGER");
 
                     b.Property<string>("fname")
                         .IsRequired()
