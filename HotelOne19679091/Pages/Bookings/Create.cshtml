@@ -18,10 +18,6 @@
                 <select asp-for="Booking.roomId" class ="form-control" asp-items="ViewBag.roomId"></select>
             </div>
             <div class="form-group">
-                <label asp-for="Booking.customerEmail" class="control-label"></label>
-                <select asp-for="Booking.customerEmail" class ="form-control" asp-items="ViewBag.customerEmail"></select>
-            </div>
-            <div class="form-group">
                 <label asp-for="Booking.checkIn" class="control-label"></label>
                 <input asp-for="Booking.checkIn" class="form-control" />
                 <span asp-validation-for="Booking.checkIn" class="text-danger"></span>
@@ -32,15 +28,30 @@
                 <span asp-validation-for="Booking.checkOut" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Booking.cost" class="control-label"></label>
-                <input asp-for="Booking.cost" class="form-control" />
-                <span asp-validation-for="Booking.cost" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
     </div>
+</div>
+
+<div>
+    @if ((bool)ViewData["onsuccess"])
+    {
+        <p>
+            Successfully booked room <b>@Model.Booking.roomId</b>, on level <b>@Model.Booking.theRoom.level</b>
+            for $@Model.Booking.cost 
+        </p>
+        <hr />
+        <p>
+            Your check in date is <b>@Model.Booking.checkIn</b> and your check out date is <b>@Model.Booking.checkOut</b>
+        </p>
+    }
+    else
+    {
+        <p>
+            Room <b>@Model.Booking.roomId</b> has already been booked. Please select another room.
+        </p>
+    }
 </div>
 
 <div>
