@@ -1,0 +1,47 @@
+﻿@page
+@model HotelOne19679091.Pages.Rooms.SearchRoomsModel
+@{
+    @using Microsoft.AspNetCore.Identity
+    @inject UserManager<IdentityUser> UserManager
+    ViewData["Title"] = "MyDetails";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+<h2>Search Rooms</h2>
+<hr />
+
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <!--number of beds-->
+                <label asp-for="userInput.bedCount" class="control-label">Number of Beds</label>
+                <select asp-for="userInput.bedCount" class="form-control" asp-items="ViewBag.bedCount">
+                    <option value="Option1" selected>1</option>
+                    <option value="Option2">2</option>
+                    <option value="Option3">3</option>
+                </select>
+            </div>
+
+            <div class="form-group"> <!--checkin date-->
+
+            </div>
+
+            <div class="form-group"> <!--checkout date-->
+
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Submit" class="btn btn-primary" />
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@if(ViewData["success"] != null)
+{
+    <hr />
+    <h5>the number of beds selected is @ViewData["bedCount"]</h5>
+}
