@@ -317,7 +317,6 @@ namespace HotelOne19679091.Data.Migrations
                 columns: table => new
                 {
                     email = table.Column<string>(nullable: false),
-                    cutomerId = table.Column<int>(nullable: false),
                     lname = table.Column<string>(maxLength: 20, nullable: false),
                     fname = table.Column<string>(maxLength: 20, nullable: false),
                     postCode = table.Column<string>(nullable: false)
@@ -346,7 +345,7 @@ namespace HotelOne19679091.Data.Migrations
                 name: "Booking",
                 columns: table => new
                 {
-                    bookindId = table.Column<int>(nullable: false)
+                    bookingId = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     roomId = table.Column<int>(nullable: false),
                     customerEmail = table.Column<string>(nullable: false),
@@ -356,7 +355,7 @@ namespace HotelOne19679091.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Booking", x => x.bookindId);
+                    table.PrimaryKey("PK_Booking", x => x.bookingId);
                     table.ForeignKey(
                         name: "FK_Booking_Customer_customerEmail",
                         column: x => x.customerEmail,

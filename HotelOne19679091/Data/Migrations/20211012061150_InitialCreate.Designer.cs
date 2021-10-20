@@ -20,7 +20,7 @@ namespace HotelOne19679091.Data.Migrations
 
             modelBuilder.Entity("HotelOne19679091.Models.Booking", b =>
                 {
-                    b.Property<int>("bookindId")
+                    b.Property<int>("bookingId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -40,7 +40,7 @@ namespace HotelOne19679091.Data.Migrations
                     b.Property<int>("roomId")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("bookindId");
+                    b.HasKey("bookingId");
 
                     b.HasIndex("customerEmail");
 

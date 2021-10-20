@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HotelOne19679091.Data;
 using HotelOne19679091.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HotelOne19679091.Pages.Bookings
 {

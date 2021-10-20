@@ -7,9 +7,14 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using HotelOne19679091.Data;
 using HotelOne19679091.Models;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace HotelOne19679091.Pages.Bookings
 {
+    [Authorize]
     public class CreateModel : PageModel
     {
         private readonly HotelOne19679091.Data.ApplicationDbContext _context;
@@ -22,7 +27,7 @@ namespace HotelOne19679091.Pages.Bookings
         public IActionResult OnGet()
         {
         ViewData["customerEmail"] = new SelectList(_context.Customer, "email", "email");
-        ViewData["roomId"] = new SelectList(_context.Room, "roomId", "level");
+        ViewData["roomId"] = new SelectList(_context.Room, "roomId", "roomId");
             return Page();
         }
 
@@ -33,15 +38,39 @@ namespace HotelOne19679091.Pages.Bookings
         // more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
+            ViewData["roomId"] = new SelectList(_context.Room, "roomId", "roomId");
+
+            if (Booking.checkIn > Booking.checkOut)
             {
+                ViewData["oninvaliddate"] = "true";
+                return Page();
+            }
+
+            FormattableString sqlStatement = $"SELECT * FROM Room as r, Booking as b WHERE b.roomId == r.roomId AND b.roomId == {Booking.roomId} and ({Booking.checkIn} >= b.checkIn and {Booking.checkIn} <= b.checkOut) or ({Booking.checkOut} >= b.checkIn and {Booking.checkOut} <= b.checkOut)";
+
+            var booking = _context.Room.FromSqlInterpolated(sqlStatement);
+
+            string email = User.FindFirst(ClaimTypes.Name).Value;
+
+            // Check if room is already booked (exists inside Room)
+            Room rooms = await _context.Room.FirstOrDefaultAsync(r => r.roomId == Booking.roomId);
+
+            if (booking.Count() == 0) // room exists
+            {
+                Booking.customerEmail = email;
+                Booking.cost = (decimal)((Booking.checkOut - Booking.checkIn).TotalDays) * rooms.price;
+            }
+            else
+            {
+                ViewData["AlreadyBooked"] = "true";
                 return Page();
             }
 
             _context.Booking.Add(Booking);
             await _context.SaveChangesAsync();
+            ViewData["Success"] = "true";
 
-            return RedirectToPage("./Index");
+            return Page();
         }
     }
 }

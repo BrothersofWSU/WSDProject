@@ -16,6 +16,8 @@ namespace HotelOne19679091.Pages.Bookings
 
         public IndexModel(HotelOne19679091.Data.ApplicationDbContext context)
         {
+
+            Console.WriteLine("i am in the index page");
             _context = context;
         }
 

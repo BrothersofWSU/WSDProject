@@ -18,7 +18,7 @@ namespace HotelOne19679091.Data
             var UserManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
 
             //role names here
-            string[] roleNames = { "Admin", "Customers" };
+            string[] roleNames = { "Admin", "Customer" };
             IdentityResult roleResult;
 
             foreach (var roleName in roleNames)
