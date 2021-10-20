@@ -40,19 +40,21 @@ namespace HotelOne19679091.Pages.Bookings
         {
 
             Console.WriteLine("i am in the onpostasync");
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
 
             string email = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            Room room = await _context.Room.FirstOrDefaultAsync(m => m.roomId == Booking.roomId);
+            Room room = await _context.Room.FirstOrDefaultAsync();
 
+;
             if (Booking.roomId != room.roomId)
             {
-                Console.WriteLine("i am in the if statement");
+                Console.WriteLine("in if statement");
+                Booking.roomId = room.roomId
                 Booking.customerEmail = email;
+                Booking.checkIn = DateTime.UtcNow;
+                Booking.checkOut = DateTime.UtcNow;
                 Booking.cost = (decimal)((Booking.checkOut - Booking.checkIn).TotalDays) * room.price;
+
+                Console.WriteLine("successful");
             }
             else
             {
@@ -60,8 +62,11 @@ namespace HotelOne19679091.Pages.Bookings
                 return Page();
             }
 
+            Console.WriteLine("atemmpting to save changes...");
             _context.Booking.Add(Booking);
             await _context.SaveChangesAsync();
+
+            Console.WriteLine("changes saved");
             ViewData["Success"] = "true";
 
             return Page();

@@ -345,7 +345,7 @@ namespace HotelOne19679091.Data.Migrations
                 name: "Booking",
                 columns: table => new
                 {
-                    bookindId = table.Column<int>(nullable: false)
+                    bookingId = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     roomId = table.Column<int>(nullable: false),
                     customerEmail = table.Column<string>(nullable: false),
