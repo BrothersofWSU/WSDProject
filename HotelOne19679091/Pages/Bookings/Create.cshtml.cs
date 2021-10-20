@@ -38,16 +38,27 @@ namespace HotelOne19679091.Pages.Bookings
         // more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
+            ViewData["roomId"] = new SelectList(_context.Room, "roomId", "roomId");
+
+            if (Booking.checkIn > Booking.checkOut)
+            {
+                ViewData["oninvaliddate"] = "true";
+                return Page();
+            }
+
+            FormattableString sqlStatement = $"SELECT * FROM Room as r, Booking as b WHERE b.roomId == r.roomId AND b.roomId == {Booking.roomId} and ({Booking.checkIn} >= b.checkIn and {Booking.checkIn} <= b.checkOut) or ({Booking.checkOut} >= b.checkIn and {Booking.checkOut} <= b.checkOut)";
+
+            var booking = _context.Room.FromSqlInterpolated(sqlStatement);
+
             string email = User.FindFirst(ClaimTypes.Name).Value;
 
             // Check if room is already booked (exists inside Room)
-            Room room = await _context.Room.FirstOrDefaultAsync(r => r.roomId == Booking.roomId);
+            Room rooms = await _context.Room.FirstOrDefaultAsync(r => r.roomId == Booking.roomId);
 
-            if (room != null) // room exists
+            if (booking.Count() == 0) // room exists
             {
-                Booking.roomId = room.roomId; 
                 Booking.customerEmail = email;
-                Booking.cost = (decimal)((Booking.checkOut - Booking.checkIn).TotalDays) * room.price;
+                Booking.cost = (decimal)((Booking.checkOut - Booking.checkIn).TotalDays) * rooms.price;
             }
             else
             {
@@ -61,7 +72,5 @@ namespace HotelOne19679091.Pages.Bookings
 
             return Page();
         }
-
-
     }
 }

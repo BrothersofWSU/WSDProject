@@ -52,6 +52,10 @@
             Room <b>@Model.Booking.roomId</b> has already been booked. Please select another room.
         </p>
     }
+    @if (ViewData["oninvaliddate"] == "true")
+    {
+        <p>Check in date cannot be greater than check out date.</p>
+    }
 </div>
 
 <div>
