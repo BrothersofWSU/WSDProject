@@ -68,7 +68,7 @@ namespace HotelOne19679091.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
 
-        public async Task<IActionResult> OnPostAsync(string returnUrl = null)
+        public async Task<IActionResult> OnPostAsync(string returnUrl = "~/Customers/MyDetails")
         {
             returnUrl = returnUrl ?? Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
@@ -92,7 +92,7 @@ namespace HotelOne19679091.Areas.Identity.Pages.Account
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
                     //Add this user to the role Customers
-                    await _userManager.AddToRoleAsync(user, "Customers");
+                    await _userManager.AddToRoleAsync(user, "Customer");
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
