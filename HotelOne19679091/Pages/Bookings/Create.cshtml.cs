@@ -22,7 +22,7 @@ namespace HotelOne19679091.Pages.Bookings
         public IActionResult OnGet()
         {
         ViewData["customerEmail"] = new SelectList(_context.Customer, "email", "email");
-        ViewData["roomId"] = new SelectList(_context.Room, "roomId", "level");
+        ViewData["roomId"] = new SelectList(_context.Room, "roomId", "roomId");
             return Page();
         }
 
