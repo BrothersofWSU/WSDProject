@@ -7,9 +7,14 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using HotelOne19679091.Data;
 using HotelOne19679091.Models;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace HotelOne19679091.Pages.Bookings
 {
+    [Authorize(Roles = "Customers")]
     public class CreateModel : PageModel
     {
         private readonly HotelOne19679091.Data.ApplicationDbContext _context;
@@ -22,7 +27,7 @@ namespace HotelOne19679091.Pages.Bookings
         public IActionResult OnGet()
         {
         ViewData["customerEmail"] = new SelectList(_context.Customer, "email", "email");
-        ViewData["roomId"] = new SelectList(_context.Room, "roomId", "level");
+        ViewData["roomId"] = new SelectList(_context.Room, "roomId", "roomId");
             return Page();
         }
 
@@ -37,6 +42,12 @@ namespace HotelOne19679091.Pages.Bookings
             {
                 return Page();
             }
+
+            string email = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            Room room = await _context.Room.FirstOrDefaultAsync(m => m.roomId == Booking.roomId);
+
+            Booking.customerEmail = email;
+            Booking.cost = (decimal)((Booking.checkOut - Booking.checkIn).TotalDays) * room.price;
 
             _context.Booking.Add(Booking);
             await _context.SaveChangesAsync();
