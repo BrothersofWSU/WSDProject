@@ -14,7 +14,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HotelOne19679091.Pages.Bookings
 {
-    [Authorize(Roles = "Customers")]
+    [Authorize]
     public class CreateModel : PageModel
     {
         private readonly HotelOne19679091.Data.ApplicationDbContext _context;
@@ -38,6 +38,8 @@ namespace HotelOne19679091.Pages.Bookings
         // more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
+
+            Console.WriteLine("i am in the onpostasync");
             if (!ModelState.IsValid)
             {
                 return Page();
@@ -48,19 +50,20 @@ namespace HotelOne19679091.Pages.Bookings
 
             if (Booking.roomId != room.roomId)
             {
+                Console.WriteLine("i am in the if statement");
                 Booking.customerEmail = email;
                 Booking.cost = (decimal)((Booking.checkOut - Booking.checkIn).TotalDays) * room.price;
             }
             else
             {
-                ViewData["onsuccess"] = false;
+                ViewData["AlreadyBooked"] = "true";
                 return Page();
             }
 
             _context.Booking.Add(Booking);
             await _context.SaveChangesAsync();
+            ViewData["Success"] = "true";
 
-            ViewData["onsuccess"] = true;
             return Page();
         }
     }
