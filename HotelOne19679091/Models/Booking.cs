@@ -37,7 +37,5 @@ namespace HotelOne19679091.Models
 
         [Display(Name = "Customer")]
         public Customer theCustomer { get; set; }
-
-
     }
 }
