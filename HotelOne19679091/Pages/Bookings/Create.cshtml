@@ -35,6 +35,26 @@
 </div>
 
 <div>
+    @if ((bool)ViewData["onsuccess"])
+    {
+        <p>
+            Successfully booked room <b>@Model.Booking.roomId</b>, on level <b>@Model.Booking.theRoom.level</b>
+            for $@Model.Booking.cost 
+        </p>
+        <hr />
+        <p>
+            Your check in date is <b>@Model.Booking.checkIn</b> and your check out date is <b>@Model.Booking.checkOut</b>
+        </p>
+    }
+    else
+    {
+        <p>
+            Room <b>@Model.Booking.roomId</b> has already been booked. Please select another room.
+        </p>
+    }
+</div>
+
+<div>
     <a asp-page="Index">Back to List</a>
 </div>
 

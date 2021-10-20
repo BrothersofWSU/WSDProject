@@ -46,13 +46,22 @@ namespace HotelOne19679091.Pages.Bookings
             string email = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             Room room = await _context.Room.FirstOrDefaultAsync(m => m.roomId == Booking.roomId);
 
-            Booking.customerEmail = email;
-            Booking.cost = (decimal)((Booking.checkOut - Booking.checkIn).TotalDays) * room.price;
+            if (Booking.roomId != room.roomId)
+            {
+                Booking.customerEmail = email;
+                Booking.cost = (decimal)((Booking.checkOut - Booking.checkIn).TotalDays) * room.price;
+            }
+            else
+            {
+                ViewData["onsuccess"] = false;
+                return Page();
+            }
 
             _context.Booking.Add(Booking);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("./Index");
+            ViewData["onsuccess"] = true;
+            return Page();
         }
     }
 }
