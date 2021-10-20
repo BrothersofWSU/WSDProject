@@ -355,7 +355,7 @@ namespace HotelOne19679091.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Booking", x => x.bookindId);
+                    table.PrimaryKey("PK_Booking", x => x.bookingId);
                     table.ForeignKey(
                         name: "FK_Booking_Customer_customerEmail",
                         column: x => x.customerEmail,
