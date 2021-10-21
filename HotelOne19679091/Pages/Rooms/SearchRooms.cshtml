@@ -1,0 +1,111 @@
+﻿@page
+@model HotelOne19679091.Pages.Rooms.SearchRoomsModel
+@{
+    @using Microsoft.AspNetCore.Identity
+    @inject UserManager<IdentityUser> UserManager
+
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+<h2>Search Rooms</h2>
+<hr />
+
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <!--number of beds-->
+                <label asp-for="userInput.bedCount" class="control-label">Number of Beds</label>
+                <select asp-for="userInput.bedCount" class="form-control" asp-items="ViewBag.bedCount">
+                    <option value="1" selected>1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </select>
+                <span asp-validation-for="userInput.bedCount" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <!--checkin date-->
+                <label asp-for="userInput.checkIn" class="control-label">Check in Date</label>
+                <input asp-for="userInput.checkIn" class="form-control" />
+                <span asp-validation-for="userInput.checkIn" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <!--checkout date-->
+                <label asp-for="userInput.checkOut" class="control-label">Check out Date</label>
+                <input asp-for="userInput.checkOut" class="form-control" />
+                <span asp-validation-for="userInput.checkOut" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Submit" class="btn btn-primary" />
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@if (Model.Rooms != null)
+{
+    <div>
+        @if(Model.Rooms.Count == 0)
+        {
+            <h4>
+                There aren't any rooms available at this time
+            </h4>            
+        }
+        else
+        {
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Rooms[0].roomId)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.Rooms[0].level)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.Rooms[0].bedCount)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.Rooms[0].price)
+                    </th>
+
+                </tr>
+
+                @foreach (var item in Model.Rooms)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.roomId)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.level)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.bedCount)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.price)
+                        </td>
+                    </tr>
+                }
+
+            </table>     
+        }
+    </div>
+
+
+}
+
+@* Inlcude JavaScript for client-side vaildations.*@
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

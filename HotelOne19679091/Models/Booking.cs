@@ -20,12 +20,12 @@ namespace HotelOne19679091.Models
 
         [Display(Name ="Check in date")]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString ="0:dd-MM-yyyy")]
+        [DisplayFormat(DataFormatString ="{0:dd-MM-yyyy}")]
         public DateTime checkIn { get; set; }
 
         [Display(Name = "Check out date")]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "0:dd-MM-yyyy")]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}")]
         public DateTime checkOut { get; set; }
 
         [Display(Name ="Total cost of booking")]
