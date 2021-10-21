@@ -47,11 +47,10 @@
     </div>
 </div>
 
-@if (Model.DiffRooms != null)
+@if (Model.Rooms != null)
 {
     <div>
-        <hr />
-        @if(Model.DiffRooms.Count == 0)
+        @if(Model.Rooms.Count == 0)
         {
             <h4>
                 There aren't any rooms available at this time
@@ -62,24 +61,24 @@
             <table class="table">
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.DiffRooms[0].roomId)
+                        @Html.DisplayNameFor(model => model.Rooms[0].roomId)
                     </th>
 
                     <th>
-                        @Html.DisplayNameFor(model => model.DiffRooms[0].theRoom.level)
+                        @Html.DisplayNameFor(model => model.Rooms[0].level)
                     </th>
 
                     <th>
-                        @Html.DisplayNameFor(model => model.DiffRooms[0].theRoom.bedCount)
+                        @Html.DisplayNameFor(model => model.Rooms[0].bedCount)
                     </th>
 
                     <th>
-                        @Html.DisplayNameFor(model => model.DiffRooms[0].theRoom.price)
+                        @Html.DisplayNameFor(model => model.Rooms[0].price)
                     </th>
 
                 </tr>
 
-                @foreach (var item in Model.DiffRooms)
+                @foreach (var item in Model.Rooms)
                 {
                     <tr>
                         <td>
@@ -87,14 +86,14 @@
                         </td>
 
                         <td>
-                            @Html.DisplayFor(modelItem => item.theRoom.level)
+                            @Html.DisplayFor(modelItem => item.level)
                         </td>
 
                         <td>
-                            @Html.DisplayFor(modelItem => item.theRoom.bedCount)
+                            @Html.DisplayFor(modelItem => item.bedCount)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.theRoom.price)
+                            @Html.DisplayFor(modelItem => item.price)
                         </td>
                     </tr>
                 }

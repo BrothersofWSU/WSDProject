@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using HotelOne19679091.Data;
 using HotelOne19679091.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HotelOne19679091.Pages.Rooms
 {
+    [Authorize(Roles = "Admin")]
     public class IndexModel : PageModel
     {
         private readonly HotelOne19679091.Data.ApplicationDbContext _context;

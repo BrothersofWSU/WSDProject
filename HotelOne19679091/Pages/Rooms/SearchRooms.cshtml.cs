@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using HotelOne19679091.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -11,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HotelOne19679091.Pages.Rooms
 {
+    [Authorize]
     public class SearchRoomsModel : PageModel
     {
         private readonly HotelOne19679091.Data.ApplicationDbContext _context;
@@ -24,8 +26,8 @@ namespace HotelOne19679091.Pages.Rooms
         public SearchRoomViewModel userInput { get; set; }
 
         //list for all the rooms
+        public IList<Room> Rooms { get; set; }
 
-        public IList<Booking> DiffRooms { get; set; }
 
         public IActionResult OnGet()
         {
@@ -36,22 +38,25 @@ namespace HotelOne19679091.Pages.Rooms
         public async Task<IActionResult> OnPostAsync()
         {
 
-            var NumbRooms = new SqliteParameter("NumbRooms",userInput.bedCount);
+            ViewData["RoomsAvailable"] = new SelectList(_context.Room, "level", "bedCount", "price");
+
+            var bedCount = new SqliteParameter("bedCount", userInput.bedCount);
             var checkIn = new SqliteParameter("checkIn", userInput.checkIn);
             var checkOut = new SqliteParameter("checkOut", userInput.checkOut);
 
-            var appRooms = _context.Booking.FromSqlRaw("select * from [Room] where bedCount = @NumbRooms", NumbRooms);
-            string query = "SELECT * from Room where bedCount = @NumbRooms";
-           // Room room = await _context.Room.FromSqlRaw(query, NumbRooms);
-            //constructing the query to fine all rooms with the number of beds required.
-            Console.WriteLine("This is the user bedcount " + userInput.bedCount + " checkin: " + userInput.checkIn + " checkout: " + userInput.checkOut);
+            String sqlStatement = "SELECT * FROM Room " +
+                "WHERE bedCount = @bedCount " +
+                "AND roomId " +
+                "NOT IN (" +
+                "SELECT roomId FROM Booking " +
+                "WHERE (checkIn BETWEEN @checkIn AND @checkOut) " +
+                "AND (checkOut BETWEEN @checkIn AND @checkOut)" +
+                ")";
 
-            /*var appRooms = _context.Booking.FromSqlInterpolated($"SELECT * FROM Room as r, Booking as b WHERE r.bedCount == {userInput.bedCount}");*/
-            Console.WriteLine(appRooms);
-            DiffRooms = await appRooms.ToListAsync();
 
-            ViewData["RoomsAvailable"] = new SelectList(_context.Room, "level","bedCount", "price"); 
+            var roomsQuery = _context.Room.FromSqlRaw(sqlStatement, bedCount, checkIn, checkOut).ToListAsync();
 
+            Rooms = await roomsQuery;
 
             return Page();
         }
