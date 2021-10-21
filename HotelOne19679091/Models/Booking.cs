@@ -11,6 +11,7 @@ namespace HotelOne19679091.Models
         [Key]
         public int bookingId { get; set; }
 
+        [Display(Name = "Room ID")]
         public int roomId { get; set; } //this has to be a foreign key to Rooms table
 
         [Required]

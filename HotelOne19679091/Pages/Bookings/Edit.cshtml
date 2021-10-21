@@ -20,9 +20,9 @@
                 <span asp-validation-for="Booking.roomId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Booking.customerEmail" class="control-label"></label>
-                <select asp-for="Booking.customerEmail" class="form-control" asp-items="ViewBag.customerEmail"></select>
-                <span asp-validation-for="Booking.customerEmail" class="text-danger"></span>
+                <label asp-for="Booking.theCustomer.FullName" class="control-label"></label>
+                <select asp-for="Booking.theCustomer.FullName" class="form-control" asp-items="ViewBag.customerEmail"></select>
+                <span asp-validation-for="Booking.theCustomer.FullName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Booking.checkIn" class="control-label"></label>
@@ -47,7 +47,7 @@
 </div>
 
 <div>
-    <a asp-page="./Index">Back to List</a>
+        <a asp-page="./AdminView">Back to Admin View</a>
 </div>
 
 @section Scripts {

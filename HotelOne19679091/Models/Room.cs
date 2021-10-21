@@ -8,6 +8,8 @@ namespace HotelOne19679091.Models
 {
     public class Room
     {
+     
+        [Display(Name = "Room ID")]
         public int roomId { get; set; }
 
         [Required]

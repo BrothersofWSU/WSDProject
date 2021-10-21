@@ -16,6 +16,15 @@
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.Booking[0].theRoom.roomId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Booking[0].theCustomer.fname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Booking[0].theCustomer.lname)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Booking[0].checkIn)
             </th>
             <th>
@@ -23,15 +32,6 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Booking[0].cost)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Booking[0].theRoom)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Booking[0].theCustomer.fname)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Booking[0].theCustomer.lname)
             </th>
             <th></th>
         </tr>
@@ -41,6 +41,15 @@
         {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.theRoom.roomId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.theCustomer.fname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.theCustomer.lname)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.checkIn)
             </td>
             <td>
@@ -48,15 +57,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.cost)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.theRoom.level)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.theCustomer.fname)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.theCustomer.lname)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.bookingId">Edit</a> |

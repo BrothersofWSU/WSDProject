@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 
 namespace HotelOne19679091.Pages.Bookings
@@ -24,7 +25,7 @@ namespace HotelOne19679091.Pages.Bookings
 
         public IActionResult OnGet()
         {
-            ViewData["customerEmail"] = new SelectList(_context.Customer, "email", "email");
+            ViewData["customerEmail"] = new SelectList(_context.Customer, "email", "FullName");
             ViewData["roomId"] = new SelectList(_context.Room, "roomId", "roomId");
             return Page();
         }
@@ -36,6 +37,7 @@ namespace HotelOne19679091.Pages.Bookings
         // more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
+            ViewData["customerEmail"] = new SelectList(_context.Customer, "email", "FullName");
             ViewData["roomId"] = new SelectList(_context.Room, "roomId", "roomId");
 
             if (Booking.checkIn > Booking.checkOut)
@@ -44,26 +46,37 @@ namespace HotelOne19679091.Pages.Bookings
                 return Page();
             }
 
-            FormattableString sqlStatement = $"SELECT * FROM Room as r, Booking as b WHERE b.roomId == r.roomId AND b.roomId == {Booking.roomId} and ({Booking.checkIn} >= b.checkIn and {Booking.checkIn} <= b.checkOut) or ({Booking.checkOut} >= b.checkIn and {Booking.checkOut} <= b.checkOut)";
-            var booking = _context.Room.FromSqlInterpolated(sqlStatement);
+            var roomId = new SqliteParameter("roomId", Booking.roomId);
+            var checkIn = new SqliteParameter("checkIn", Booking.checkIn);
+            var checkOut = new SqliteParameter("checkOut", Booking.checkOut);
 
-            string email = User.FindFirst(ClaimTypes.Name).Value;
+            String sqlStatement = "SELECT * FROM Room as r " +
+                "WHERE r.roomId = @roomId " +
+                "AND roomId IN (" +
+                "SELECT roomId FROM Booking " +
+                "WHERE (checkIn BETWEEN @checkIn AND @checkOut) " +
+                "AND (checkOut BETWEEN @checkIn AND @checkOut)" +
+                ")";
+
+
+            var query = _context.Room.FromSqlRaw(sqlStatement, roomId, checkIn, checkOut);
 
             // Check if room is already booked (exists inside Room)
-            Room rooms = await _context.Room.FirstOrDefaultAsync(r => r.roomId == Booking.roomId);
+            var rooms = await query.ToListAsync();
 
-            if (booking.Count() == 0) // room exists
-                Booking.cost = (decimal)((Booking.checkOut - Booking.checkIn).TotalDays) * rooms.price;
 
-            else
+            if (rooms.Count() > 0) // room exists
             {
                 ViewData["AlreadyBooked"] = "true";
                 return Page();
             }
 
+
             _context.Booking.Add(Booking);
             await _context.SaveChangesAsync();
             ViewData["Success"] = "true";
+
+            
 
             return Page();
         }
