@@ -59,7 +59,47 @@
         }
         else
         {
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DiffRooms[0].roomId)
+                    </th>
 
+                    <th>
+                        @Html.DisplayNameFor(model => model.DiffRooms[0].theRoom.level)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.DiffRooms[0].theRoom.bedCount)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.DiffRooms[0].theRoom.price)
+                    </th>
+
+                </tr>
+
+                @foreach (var item in Model.DiffRooms)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.roomId)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.theRoom.level)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.theRoom.bedCount)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.theRoom.price)
+                        </td>
+                    </tr>
+                }
+
+            </table>     
         }
     </div>
 
