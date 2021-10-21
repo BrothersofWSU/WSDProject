@@ -24,7 +24,7 @@ namespace HotelOne19679091.Pages.Bookings
 
         public IActionResult OnGet()
         {
-            ViewData["customerEmail"] = new SelectList(_context.Customer, "email", "email");
+            ViewData["customerEmail"] = new SelectList(_context.Customer, "FullName", "FullName");
             ViewData["roomId"] = new SelectList(_context.Room, "roomId", "roomId");
             return Page();
         }
@@ -36,6 +36,7 @@ namespace HotelOne19679091.Pages.Bookings
         // more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
+            ViewData["customerEmail"] = new SelectList(_context.Customer, "email", "FullName");
             ViewData["roomId"] = new SelectList(_context.Room, "roomId", "roomId");
 
             if (Booking.checkIn > Booking.checkOut)
@@ -52,10 +53,7 @@ namespace HotelOne19679091.Pages.Bookings
             // Check if room is already booked (exists inside Room)
             Room rooms = await _context.Room.FirstOrDefaultAsync(r => r.roomId == Booking.roomId);
 
-            if (booking.Count() == 0) // room exists
-                Booking.cost = (decimal)((Booking.checkOut - Booking.checkIn).TotalDays) * rooms.price;
-
-            else
+            if (booking.Count() != 0) // room exists
             {
                 ViewData["AlreadyBooked"] = "true";
                 return Page();

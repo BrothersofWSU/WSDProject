@@ -35,6 +35,7 @@ namespace HotelOne19679091.Models
         public ICollection<Booking> theBookings { get; set; }
 
         [NotMapped]
+        [Display(Name = "Full Name")]
         public string FullName => $"{fname} {lname}";
 
     }

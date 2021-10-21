@@ -39,8 +39,9 @@ namespace HotelOne19679091.Pages.Bookings
             {
                 return NotFound();
             }
-           ViewData["customerEmail"] = new SelectList(_context.Customer, "email", "email");
-           ViewData["roomId"] = new SelectList(_context.Room, "roomId", "level");
+
+            ViewData["customerEmail"] = new SelectList(_context.Customer, "FullName", "FullName");
+            ViewData["roomId"] = new SelectList(_context.Room, "roomId", "roomId");
             return Page();
         }
 

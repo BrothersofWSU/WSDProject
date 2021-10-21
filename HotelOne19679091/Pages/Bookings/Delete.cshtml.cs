@@ -55,7 +55,7 @@ namespace HotelOne19679091.Pages.Bookings
                 await _context.SaveChangesAsync();
             }
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("./AdminView");
         }
     }
 }
