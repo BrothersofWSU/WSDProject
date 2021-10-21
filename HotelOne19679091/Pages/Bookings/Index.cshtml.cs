@@ -13,9 +13,6 @@ using System.Security.Claims;
 namespace HotelOne19679091.Pages.Bookings
 {
     [Authorize]
-
-namespace HotelOne19679091.Pages.Bookings
-{
     public class IndexModel : PageModel
     {
         private readonly HotelOne19679091.Data.ApplicationDbContext _context;
@@ -28,6 +25,7 @@ namespace HotelOne19679091.Pages.Bookings
         }
 
         public IList<Booking> Booking { get;set; }
+
 
         [ViewData]
         public string nextDateSort { get; set; }
